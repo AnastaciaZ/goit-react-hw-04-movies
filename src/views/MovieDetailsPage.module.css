@@ -1,0 +1,26 @@
+.Container {
+  padding-left: 24px;
+}
+.MovieDetails {
+  display: flex;
+}
+.MovieImg {
+  width: 250px;
+  margin-right: 20px;
+  margin-top: 5px;
+}
+.Genres {
+  display: flex;
+  margin-right: 20px;
+}
+.GenresItem {
+  margin-right: 20px;
+}
+.Additional {
+  margin-bottom: 5px;
+}
+ul {
+  padding: 0px;
+  margin: 0px;
+  list-style: none;
+}
