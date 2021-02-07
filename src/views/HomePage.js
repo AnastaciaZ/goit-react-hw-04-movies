@@ -22,18 +22,17 @@ export default class HomePage extends Component {
             <div className={ s.Container}>
                 <h1>Trending today</h1>
                 {movies.length > 0 && (
-                    <ul>
+                     <ul>
                         {movies.map(movie => (
-                            <li key={movie.id} className={ s.MoviesList}>
+                            <li key={movie.id} className={s.MoviesList}>
                                 <Link to={{
                                     pathname: `/movies/${movie.id}`,
-                                    state: {from: this.props.location},
-                                }}>
+                                    state: { from: this.props.location },
+                                    }}>
                                     {movie.title}
                                 </Link>
                             </li>
                         ))}
-                   
                     </ul>
                 )}
             </div>
