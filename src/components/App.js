@@ -5,9 +5,9 @@ import NotFound from '../views/NotFound';
 import routes from '../routes';
 
 
-const HomePage = lazy(() => import('../views/HomePage.js' /* webpackChunkName: "home-page" */));
-const MoviesPage = lazy(() => import('../views/MoviesPage.js' /* webpackChunkName: "movies-page" */));
-const MovieDetailsPage = lazy(()=> import('../views/MovieDetailsPage.js' /* webpackChunkName: "movies-details-page" */));
+const HomePage = lazy(() => import('../views/HomePage/HomePage.js' /* webpackChunkName: "home-page" */));
+const MoviesPage = lazy(() => import('../views/MoviesPage/MoviesPage.js' /* webpackChunkName: "movies-page" */));
+const MovieDetailsPage = lazy(() => import('../views/MovieDetailsPage/MovieDetailsPage.js' /* webpackChunkName: "movies-details-page" */));
 
 const App = () => (
   <div>

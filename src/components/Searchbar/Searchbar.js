@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import Button from '../Button/Button';
 import s from '../Searchbar/Searchbar.module.css';
 
 export default class Searchbar extends Component { 
@@ -33,8 +34,8 @@ export default class Searchbar extends Component {
             autoComplete="off"
             autoFocus
             placeholder="Search movie"
-          />
-          <button type="submit" className={s.SearchFormButton}>Search</button>
+        />
+        <Button label="Search" type="submit"/>
         </form>
     );
   }

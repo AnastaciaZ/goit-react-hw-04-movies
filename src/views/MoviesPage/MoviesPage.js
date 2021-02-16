@@ -1,8 +1,8 @@
 import React, { Component} from 'react';
-import { Link } from 'react-router-dom';
-import getQueryParams from '../utils/get-query-params';
-import MoviesApi from '../services/movies-api';
-import Searchbar from '../components/Searchbar/Searchbar';
+import getQueryParams from '../../utils/get-query-params';
+import MoviesApi from '../../services/movies-api';
+import Searchbar from '../../components/Searchbar/Searchbar';
+import MoviesList from '../../components/MoviesList/MoviecList';
 import s from './MoviesPage.module.css';
 
 
@@ -17,7 +17,8 @@ export default class MoviesPage extends Component {
         if (query) { 
             MoviesApi
                 .fetchMoviesWithQuery(query)
-                .then(movies => this.setState({ movies }));
+                .then(movies => this.setState({ movies }))
+                .catch(error => this.setState({error}));
         }
       
     }
@@ -42,27 +43,17 @@ export default class MoviesPage extends Component {
 
     render() {
         const { movies } = this.state;
-        const { match } = this.props;
+        const moviesLocation = this.props.location;
         
         return (
-            <>
+            <div className={ s.Container}>
                 <Searchbar onSubmit={ this.handleChangeQuery}/>
             
                 {movies.length > 0 && (
-                    <ul className={ s.Container}>
-                    {movies.map(movie => (
-                        <li key={movie.id} className={ s.MoviesList}>
-                            <Link to={{
-                                    pathname: `${match.url}/${movie.id}`,
-                                    state: {from: this.props.location},
-                                }}>
-                                {movie.title}
-                            </Link>
-                        </li>
-                    ))}    
-                    </ul>
+                    <MoviesList movies={movies}
+                        moviesLocation={ moviesLocation}/>
                 )}
-            </>
+            </div>
         );
     }
 };

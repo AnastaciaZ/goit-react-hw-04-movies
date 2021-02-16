@@ -9,7 +9,8 @@ export default class Reviews extends Component {
 
     componentDidMount() { 
         MovieReviews.fetchMovieReviews(this.props.match.params.movieId)
-        .then(results => this.setState(results ));
+            .then(results => this.setState(results))
+            .catch(error => this.setState({error}));
     }
 
     render() {

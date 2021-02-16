@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { NavLink, Route } from 'react-router-dom';
-import MovieDetailsApi from '../services/movies-api';
-import routes from '../routes';
-import Cast from './Cast';
-import Reviews from './Reviews';
+import MovieDetailsApi from '../../services/movies-api';
+import Button from '../../components/Button/Button';
+import routes from '../../routes';
+import Cast from '../Cast/Cast';
+import Reviews from '../Reviews';
+import defaultImg from '../../defaultImg/default_img.jpg';
 import s from './MovieDetailsPage.module.css';
 
 export default class MovieDetailsPage extends Component { 
@@ -14,7 +16,8 @@ export default class MovieDetailsPage extends Component {
     componentDidMount() { 
         MovieDetailsApi
             .fetchMovieDetails(this.props.match.params.movieId)
-            .then(movie => this.setState({ movie })); 
+            .then(movie => this.setState({ movie }))
+            .catch(error => this.setState({error})); 
     }
 
     handleGoBack = () => {
@@ -30,14 +33,19 @@ export default class MovieDetailsPage extends Component {
     render() { 
         const {movie } = this.state;
         const { match } = this.props;
+       
         return (
             <div className={s.Container}>
-                <button type="button" onClick={this.handleGoBack}>Go back</button>
+
+                <Button label="Go back" onClick={ this.handleGoBack} />
                 {movie && (
                     <div>
                         <div className={s.MovieDetails}>
                             <div>
-                                <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} className={ s.MovieImg}/>
+                                {movie.poster_path === null
+                                    ? <img src={defaultImg} alt={movie.title} className={s.MovieImg}/>
+                                    : <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} className={ s.MovieImg}/>}
+                               
                             </div>
                             <div>
                                 <h2>{movie.title} ({movie.release_date.slice(0,4)})</h2>  
@@ -59,7 +67,8 @@ export default class MovieDetailsPage extends Component {
                                 <li className={s.Additional}>
                                 <NavLink  to={{
                                                 pathname: `${match.url}/cast`,
-                                                state: { from: this.props.location },
+                                                //state: { from: this.props.location },
+                                                state: {from:this.props.location?.state?.from || routes.movies},
                                 }}>
                                     Cast
                                 </NavLink>
@@ -67,7 +76,8 @@ export default class MovieDetailsPage extends Component {
                                 <li className={s.Additional}>
                                 <NavLink to={{
                                     pathname: `${match.url}/reviews`,
-                                    state: { from: this.props.location },
+                                    //state: { from: this.props.location },
+                                    state: {from:this.props.location?.state?.from || routes.movies},
                                 }}>
                                     Reviews
                                 </NavLink>
